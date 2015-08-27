@@ -1,0 +1,1 @@
+global.canals = require('./canals');
