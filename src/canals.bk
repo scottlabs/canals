@@ -1,0 +1,82 @@
+var d3 = require('d3');
+import { State } from './state';
+
+var Canals = function(opts = {}){
+  const container = d3.select(opts.selector);
+  const className = opts.className || 'canals';
+  const objects = [];
+  
+  //Make an SVG Container
+  //
+  if ( !container[0] ) {
+    throw "No element found for selector " + opts.selector;
+  }
+
+  function mouseDown() {
+    div.style('cursor', '-webkit-grabbing');
+    var start = d3.mouse(this);
+    objects.map(function(obj) {
+      obj.mapDown(start);
+    })
+
+    div.on('mousemove', function() {
+      var pos = d3.mouse(this);
+      objects.map(function(obj) {
+        obj.mapMove(pos);
+      });
+    })
+  };
+
+  function mouseUp() {
+    div.on('mousemove', null)
+    .style('cursor', '-webkit-grab');
+    objects.map(function(obj) {
+      obj.mapUp();
+    });
+
+  }
+
+  var div = container
+  .append('div')
+  .attr('class', [className, 'world']).style({
+    height: '100%',
+    width: '100%',
+    cursor: 'pointer',
+    position: 'relative'
+  })
+  .style('cursor', 'move')
+  .style('cursor', '-moz-grab')
+  .style('cursor', '-webkit-grab')
+  //.on('mousedown', mouseDown)
+  //.on('mouseup', mouseUp);
+
+  const svg = div.append('svg')
+  .attr("width", '100%')
+  .attr("height", '100%');
+
+  objects.push(new State(svg, {
+    x: 0,
+    y: 0,
+    width: 60,
+    height: 60,
+    corner: 10,
+    id:'bar' 
+  }));
+
+  objects.push(new State(svg, {
+    id: 'foo',
+    x: 100,
+    y: 100,
+    width: 60,
+    height: 60,
+    corner: 10
+  }));
+
+
+  return {
+    foo: 'bar'
+  };
+};
+
+
+module.exports = Canals;

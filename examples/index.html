@@ -1,5 +1,35 @@
-<div id="canals"></div>
+<div id="canals-container"></div>
+<style type="text/css">
+
+.overlay {
+  fill: none;
+    pointer-events: all;
+    }
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#canals {
+  height: 100%;
+  width: 100%;
+  background: #EEE;
+}
+/* Canals Styles */
+
+.world {
+  cursor: pointer; cursor: hand;
+  height: 100%;
+  width: 100%;
+}
+</style>
 <script type="text/javascript" src="../public/vendors.js"></script>
 <script type="text/javascript" src="../public/bundle.js"></script>
 <script type="text/javascript">
+  canals({
+    selector: '#canals-container',
+    className: 'canal'
+  });
 </script>
